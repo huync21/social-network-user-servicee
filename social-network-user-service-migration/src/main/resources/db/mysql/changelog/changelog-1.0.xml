@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+  <changeSet author="huy" id="1_create_initial_tables">
+    <sqlFile dbms="mysql"
+      path="classpath:/db/mysql/sources/1_init_db.sql"
+      relativeToChangelogFile="false"/>
+  </changeSet>
+  <changeSet author="huy" id="2_insert_user_data">
+    <sqlFile dbms="mysql"
+             path="classpath:/db/mysql/sources/2_insert_user_data.sql"
+             relativeToChangelogFile="false"/>
+  </changeSet>
+</databaseChangeLog>

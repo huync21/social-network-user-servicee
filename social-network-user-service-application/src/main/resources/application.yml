@@ -1,0 +1,8 @@
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+server:
+  port: 8500
+  servlet:
+    context-path: /social-network-user-service

@@ -1,0 +1,8 @@
+spring:
+  profiles.active: local
+  application.name: social-network-user-service-migration
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  liquibase:
+    change-log: classpath:db/mysql/liquibase-changelog.xml
+liquibase.database: mysql
