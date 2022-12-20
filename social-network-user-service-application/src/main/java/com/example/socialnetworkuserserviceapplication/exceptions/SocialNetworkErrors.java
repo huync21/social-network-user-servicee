@@ -14,4 +14,9 @@ public class SocialNetworkErrors {
     public static final SocialNetworkBusinessError USER_NAME_ALREADY_EXISTED = new SocialNetworkBusinessError(400002, "User name already existed", HttpStatus.BAD_REQUEST);
     public static final SocialNetworkBusinessError OLD_PASSWORD_INCORRECT = new SocialNetworkBusinessError(400003, "Your old password is incorrect", HttpStatus.BAD_REQUEST);
     public static final SocialNetworkBusinessError ROLE_DOESNT_EXIST = new SocialNetworkBusinessError(400004, "Role doesn't exist", HttpStatus.BAD_REQUEST);
+
+    /**
+     * 401
+     */
+    public static final SocialNetworkBusinessError UNAUTHORIZED = new SocialNetworkBusinessError(401, "Unauthorized client", HttpStatus.UNAUTHORIZED);
 }

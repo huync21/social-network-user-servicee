@@ -5,18 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -35,20 +36,35 @@ public class SocialNetworkSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        var basicAuths = securityConfigurationProperties.getBasicAuths();
-        for (SecurityConfigurationProperties.BasicAuth basicAuth : basicAuths) {
-            List<GrantedAuthority> authorities = basicAuth.getRoles()
-                    .stream().map(authority -> new SimpleGrantedAuthority(authority))
-                    .collect(Collectors.toList());
-            auth
-                    .inMemoryAuthentication()
-                    .withUser(basicAuth.getUsername())
-                    .password(new BCryptPasswordEncoder().encode(basicAuth.getPassword()))
-                    .authorities(authorities);
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        var basicAuths = securityConfigurationProperties.getBasicAuths();
+//        for (SecurityConfigurationProperties.BasicAuth basicAuth : basicAuths) {
+//            String[] authorities = basicAuth.getRoles().stream().toArray(String[]::new);
+//            auth
+//                    .inMemoryAuthentication()
+//                    .withUser(basicAuth.getUsername())
+//                    .password(new BCryptPasswordEncoder().encode(basicAuth.getPassword()))
+//                    .roles(authorities);
+//
+//        }
+//    }
 
+    @Bean
+    public UserDetailsService users() {
+        var basicAuths = securityConfigurationProperties.getBasicAuths();
+        List<UserDetails> userDetails = new ArrayList<>();
+        for (SecurityConfigurationProperties.BasicAuth basicAuth : basicAuths) {
+            String[] authorities = basicAuth.getRoles().stream().toArray(String[]::new);
+            UserDetails user = User.builder()
+                    .username(basicAuth.getUsername())
+                    .password(new BCryptPasswordEncoder().encode(basicAuth.getPassword()))
+                    .roles(authorities)
+                    .build();
+            userDetails.add(user);
         }
+
+        return new InMemoryUserDetailsManager(userDetails);
     }
 
     @Bean
