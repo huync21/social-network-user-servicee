@@ -4,15 +4,18 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+import java.util.UUID;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-//    UUID uuid;
-    Integer id;
-    String email;
+    UUID id;
+//    Integer id;
     String username;
     String password;
     String avatar;
     String description;
-    boolean enabled;
+    Boolean enabled;
+    List<Role> roles;
 }

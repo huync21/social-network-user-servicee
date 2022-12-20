@@ -35,16 +35,19 @@ CREATE TABLE ROLE
 
 CREATE TABLE USER
 (
-    ID                  INT PRIMARY KEY AUTO_INCREMENT,
+    ID                  VARCHAR(36) PRIMARY KEY,
     USERNAME            VARCHAR(24) UNIQUE KEY NOT NULL,
     PASSWORD            VARCHAR(255) NOT NULL,
-    EMAIL               VARCHAR(255) NOT NULL,
     AVATAR              VARCHAR(255),
     DESCRIPTION         VARCHAR(255),
     ENABLED             BIT(1)       NOT NULL,
     ACCOUNT_EXPIRED     BIT(1)       NOT NULL,
     CREDENTIALS_EXPIRED BIT(1)       NOT NULL,
-    ACCOUNT_LOCKED      BIT(1)       NOT NULL
+    ACCOUNT_LOCKED      BIT(1)       NOT NULL,
+    created_date       datetime     null,
+    created_by          varchar(255) null,
+    last_modified_date datetime     null,
+    last_modified_by   varchar(256) null
 );
 
 
@@ -53,7 +56,7 @@ CREATE TABLE ROLE_USER
 (
     ROLE_ID INT,
     FOREIGN KEY (ROLE_ID) REFERENCES ROLE (ID),
-    USER_ID INT,
+    USER_ID VARCHAR(36),
     FOREIGN KEY (USER_ID) REFERENCES USER (ID)
 );
 
@@ -64,6 +67,10 @@ CREATE TABLE USER_NAME_CHANGE_LOG
     ID            INT PRIMARY KEY AUTO_INCREMENT,
     OLD_USER_NAME VARCHAR(24),
     NEW_USER_NAME VARCHAR(24),
-    USER_ID       INT,
+    USER_ID       VARCHAR(36),
+    created_date       datetime     null,
+    created_by          varchar(255) null,
+    last_modified_date datetime     null,
+    last_modified_by   varchar(256) null,
     FOREIGN KEY (USER_ID) REFERENCES USER (ID)
 )

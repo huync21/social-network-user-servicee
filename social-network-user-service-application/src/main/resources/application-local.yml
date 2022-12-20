@@ -8,4 +8,8 @@ socialnetwork:
   security:
     client:
       basicAuths:
-        - {username: "social-network-usecase-service", password: "password", roles: ["role_admin", "role_user"]}
+        - {username: "social-network-usecase-service", password: "password", roles: ["role_user"]}
+        - {username: "back-office-usecase-service", password: "password", roles: ["role_admin", "role_user"]}
+    endpointAuthorizations:
+      - {urlPattern: "/users/authorize", roles: ["role_admin"]}
+      - {urlPattern: "/users/**", roles: ["role_admin", "role_user"]}

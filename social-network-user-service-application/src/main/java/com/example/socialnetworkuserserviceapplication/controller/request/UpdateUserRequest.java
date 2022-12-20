@@ -1,20 +1,18 @@
-package com.example.socialnetworkuserserviceapplication.controller.response;
+package com.example.socialnetworkuserserviceapplication.controller.request;
 
-import com.example.socialnetworkuserserviceapplication.service.domain.Role;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponse {
+public class UpdateUserRequest {
+    @NotNull
     UUID id;
-//    Integer id;
     String username;
     String avatar;
     String description;
-    List<Role> roles;
 }

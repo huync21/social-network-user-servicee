@@ -6,9 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface IUsersRepository extends JpaRepository<UserJPA, Integer> {
-    List<UserJPA> findByUsernameContaining(String keyword);
+public interface IUsersRepository extends JpaRepository<UserJPA, UUID> {
+    List<UserJPA> findByUsernameContainingAndEnabled(String keyword, boolean enable);
+
     Optional<UserJPA> findByUsername(String username);
 }

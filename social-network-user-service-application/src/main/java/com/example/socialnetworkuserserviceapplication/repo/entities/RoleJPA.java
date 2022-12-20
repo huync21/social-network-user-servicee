@@ -1,14 +1,16 @@
 package com.example.socialnetworkuserserviceapplication.repo.entities;
 
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Role")
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoleJPA {
     @Id

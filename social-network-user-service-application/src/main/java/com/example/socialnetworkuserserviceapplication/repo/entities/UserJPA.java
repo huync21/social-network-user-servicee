@@ -13,33 +13,33 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.*;
 
 @Entity
 @Table(name = "user")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-//@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class)
 public class UserJPA {
-//    @Id
-//    @GeneratedValue(generator = "UUID")
-//    @GenericGenerator(
-//            name = "UUID",
-//            strategy = "org.hibernate.id.UUIDGenerator"
-//    )
-//    @Type(type="uuid-char")
-//    UUID uuid;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Type(type="uuid-char")
+    UUID id;
+
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    Integer id;
     static final long serialVersionUID = 1L;
-    String email;
     String username;
     String password;
     String avatar;
     String description;
-    boolean enabled;
+    Boolean enabled;
 
     @Column(name = "account_locked")
     boolean accountNonLocked;
@@ -50,7 +50,7 @@ public class UserJPA {
     @Column(name = "credentials_expired")
     boolean credentialsNonExpired;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "role_user", joinColumns = {
             @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
             @JoinColumn(name = "role_id", referencedColumnName = "id") })
@@ -87,16 +87,16 @@ public class UserJPA {
 //        return authorities;
 //    }
 
-//    @Column(name = "created_date", nullable = false, updatable = false)
-//    @CreatedDate
-//    long createdDate;
-//    @Column(name = "modified_date")
-//    @LastModifiedDate
-//    long modifiedDate;
-//    @Column(name = "created_by")
-//    @CreatedBy
-//    String createdBy;
-//    @Column(name = "modified_by")
-//    @LastModifiedBy
-//    String modifiedBy;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    Instant createdDate;
+    @Column(name = "last_modified_date")
+    @LastModifiedDate
+    Instant modifiedDate;
+    @Column(name = "created_by")
+    @CreatedBy
+    String createdBy;
+    @Column(name = "last_modified_by")
+    @LastModifiedBy
+    String modifiedBy;
 }

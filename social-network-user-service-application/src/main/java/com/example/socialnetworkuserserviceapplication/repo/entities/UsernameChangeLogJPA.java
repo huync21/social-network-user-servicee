@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -27,17 +28,17 @@ public class UsernameChangeLogJPA {
     @Column(name = "new_user_name")
     String newUserName;
     @Column(name = "user_id")
-    Integer userID;
-//    @Column(name = "created_date", nullable = false, updatable = false)
-//    @CreatedDate
-//    long createdDate;
-//    @Column(name = "modified_date")
-//    @LastModifiedDate
-//    long modifiedDate;
-//    @Column(name = "created_by")
-//    @CreatedBy
-//    String createdBy;
-//    @Column(name = "modified_by")
-//    @LastModifiedBy
-//    String modifiedBy;
+    String userID;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    Instant createdDate;
+    @Column(name = "last_modified_date")
+    @LastModifiedDate
+    Instant modifiedDate;
+    @Column(name = "created_by")
+    @CreatedBy
+    String createdBy;
+    @Column(name = "last_modified_by")
+    @LastModifiedBy
+    String modifiedBy;
 }

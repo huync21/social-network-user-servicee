@@ -20,10 +20,12 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
-@EnableConfigurationProperties(SecurityConfigurationProperties.class)
+@EnableConfigurationProperties({SecurityConfigurationProperties.class, SecurityEndpointAuthorizationProperties.class})
 public class SocialNetworkSecurityConfigurerAdapter {
     @Autowired
     private SecurityConfigurationProperties securityConfigurationProperties;
+    @Autowired
+    private SecurityEndpointAuthorizationProperties securityEndpointAuthorizationProperties;
     @Autowired
     private SocialNetworkBasicAuthenticationEntryPoint authenticationEntryPoint;
 
@@ -51,20 +53,28 @@ public class SocialNetworkSecurityConfigurerAdapter {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        List<SecurityEndpointAuthorizationProperties.Authorization> endpointAuthorizations = securityEndpointAuthorizationProperties.getEndpointAuthorizations();
+        endpointAuthorizations.forEach(authorization -> {
+            try {
+                http
+                        .authorizeRequests()
+                            .antMatchers(authorization.getUrlPattern())
+                            .hasAnyRole(authorization.getRoles().stream().toArray(String[]::new));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         http
                 .requestMatchers()
                     .antMatchers("/api/**")
-                    .and()
-                .authorizeRequests()
-                    .antMatchers("/users/**")
-                    .hasAnyRole("admin", "user")
-                    .anyRequest().authenticated()
                     .and()
                 .httpBasic()
                     .authenticationEntryPoint(authenticationEntryPoint)
                     .and()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                .cors().and().csrf().disable();
         return http.build();
     }
 
