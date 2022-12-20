@@ -445,7 +445,7 @@ API đổi pasword
 
 Intergration test sử dụng junit4 và rest assured.
 
-# Nếu có thêm time sẽ làm tiếp
+# Nếu có thêm time sẽ làm tiếp:
 
 **1. Oauth 2.**
 
@@ -478,3 +478,8 @@ connect giữa các user, group user, service quản lý media files, chat messa
 
 - Thêm service usecase và gateway cho backoffice.
 
+# Nếu lên production nhiệm vụ của dev sẽ làm thêm:
+
+- Thêm config cho môi trường production(datasource đến db trên prod, config call tới các service khác nếu có,...)
+- Mã hóa password của basic auth
+- Request môi trường trên production
