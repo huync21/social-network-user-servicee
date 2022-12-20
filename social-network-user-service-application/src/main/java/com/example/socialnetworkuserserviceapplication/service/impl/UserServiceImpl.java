@@ -8,6 +8,7 @@ import com.example.socialnetworkuserserviceapplication.repo.IRoleRepository;
 import com.example.socialnetworkuserserviceapplication.repo.IUsernameChangeLogRepository;
 import com.example.socialnetworkuserserviceapplication.repo.IUsersRepository;
 import com.example.socialnetworkuserserviceapplication.repo.entities.UsernameChangeLogJPA;
+import com.example.socialnetworkuserserviceapplication.service.IAsyncLogService;
 import com.example.socialnetworkuserserviceapplication.service.IUserService;
 import com.example.socialnetworkuserserviceapplication.service.domain.User;
 import com.example.socialnetworkuserserviceapplication.service.mapstruct.UserServiceMapper;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements IUserService {
     private final IRoleRepository roleRepository;
     private final UserServiceMapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final IAsyncLogService asyncLogService;
 
     @Override
     public List<User> findUserByUsername(String keyword) {
@@ -63,19 +65,12 @@ public class UserServiceImpl implements IUserService {
 
         var newUserJPA = mapper.merge(oldUserJPA, user);
         var savedUserJPA = userRepository.save(newUserJPA);
-        saveUsernameChangeLog(oldUserName, newUserName, userId);
-        return mapper.to(savedUserJPA);
-    }
 
-    private void saveUsernameChangeLog(String oldUsername, String newUsername, UUID userId) {
-        if(!oldUsername.equals(newUsername)){
-            var changeLog = UsernameChangeLogJPA.builder()
-                    .userID(userId.toString())
-                    .oldUserName(oldUsername)
-                    .newUserName(newUsername)
-                    .build();
-            usernameChangeLogRepository.save(changeLog);
-        }
+        // log username change asynchronously
+        // split async function to another service because class cannot self-call async function in the same class
+        asyncLogService.logUserNamePasswordChange(oldUserName, newUserName, userId);
+
+        return mapper.to(savedUserJPA);
     }
 
     @Override
