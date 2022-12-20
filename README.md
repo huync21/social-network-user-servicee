@@ -17,6 +17,13 @@ Là service quản lý user, phục vụ cho các internal service trong hệ th
 # Postman collection
 Để ở file Social-network-user-service.postman_collection.json trong project
 
+# Basic auth và phân quyền các endpoint:
+
+![img_2.png](img_2.png)
+
+các server có basic auth quyền admin mới được call api thêm quyền cho các user.
+
+
 # Mô tả API
 **1. POST** - /api/v1/users/authorize
 
