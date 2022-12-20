@@ -2,6 +2,11 @@
 Là service quản lý user, phục vụ cho các internal service trong hệ thống call tới, sử dụng basic auth
 
 ![img.png](img.png)
+
+# usersdb
+
+![img_1.png](img_1.png)
+
 # Hướng dẫn khởi chạy
 **Bước 1:** Run _docker-compose.yml_
 
