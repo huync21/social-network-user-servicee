@@ -1,4 +1,4 @@
-package com.example.socialnetworkuserserviceapplication.config;
+package com.example.socialnetworkuserserviceapplication.repo;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

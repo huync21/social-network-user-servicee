@@ -3,7 +3,7 @@ package com.example.socialnetworkuserserviceapplication.service.impl;
 import com.example.socialnetworkuserserviceapplication.exceptions.SocialNetworkErrors;
 import com.example.socialnetworkuserserviceapplication.exceptions.SocialNetworkException;
 import com.example.socialnetworkuserserviceapplication.repo.IRoleRepository;
-import com.example.socialnetworkuserserviceapplication.service.IUserRepository;
+import com.example.socialnetworkuserserviceapplication.repo.IUsersRepository;
 import com.example.socialnetworkuserserviceapplication.repo.IUsernameChangeLogRepository;
 import com.example.socialnetworkuserserviceapplication.repo.entities.UserJPA;
 import com.example.socialnetworkuserserviceapplication.repo.entities.UsernameChangeLogJPA;
@@ -16,20 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements IUserService {
-    private final IUserRepository userRepository;
+    private final IUsersRepository userRepository;
     private final IUsernameChangeLogRepository usernameChangeLogRepository;
     private final IRoleRepository roleRepository;
     private final UserServiceMapper mapper;
 
     @Override
     public List<User> findUserByUsername(String keyword) {
-        return mapper.to(userRepository.findByUsernameContainingAndEnabled(keyword, true));
+        return mapper.to(userRepository.findByUsernameContaining(keyword));
     }
 
     @Override
