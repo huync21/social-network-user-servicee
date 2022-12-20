@@ -67,7 +67,7 @@ public class UserServiceImpl implements IUserService {
         var savedUserJPA = userRepository.save(newUserJPA);
 
         // log username change asynchronously
-        // split async function to another service because class cannot self-call async function in the same class
+        // split async function to another service because we cannot call async function in the same class
         asyncLogService.logUserNamePasswordChange(oldUserName, newUserName, userId);
 
         return mapper.to(savedUserJPA);

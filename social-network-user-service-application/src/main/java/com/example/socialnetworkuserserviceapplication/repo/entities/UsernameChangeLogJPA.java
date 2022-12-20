@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_name_change_log")
+@Table(name = "USER_NAME_CHANGE_LOG")
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 public class UsernameChangeLogJPA {

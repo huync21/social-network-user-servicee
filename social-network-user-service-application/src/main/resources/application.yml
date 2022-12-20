@@ -1,8 +1,12 @@
 spring:
+  profiles.active: local
   jackson:
     property-naming-strategy: SNAKE_CASE
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 server:
-  port: 8500
   servlet:
     context-path: /social-network-user-service

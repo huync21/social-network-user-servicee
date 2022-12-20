@@ -1,4 +1,4 @@
-package com.example.socialnetworkuserserviceapplication.sercurity;
+package com.example.socialnetworkuserserviceapplication.security;
 
 import lombok.AccessLevel;
 import lombok.Getter;

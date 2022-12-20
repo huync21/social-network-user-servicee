@@ -1,6 +1,7 @@
 package com.example.socialnetworkuserserviceapplication.service.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class User {
     UUID id;
 //    Integer id;

@@ -3,6 +3,12 @@ spring:
     url: jdbc:mysql://localhost:3310/usersdb?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    jpa:
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 socialnetwork:
   security:
@@ -15,4 +21,6 @@ socialnetwork:
       - {urlPattern: "/api/v1/users/**", roles: ["USER", "ADMIN"]}
 
 server:
+  servlet:
+    context-path: /social-network-user-service
   port: 8500

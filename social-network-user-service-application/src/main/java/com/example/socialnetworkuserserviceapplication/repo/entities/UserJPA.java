@@ -17,7 +17,7 @@ import java.time.Instant;
 import java.util.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "USER")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
@@ -30,10 +30,6 @@ public class UserJPA {
     )
     @Type(type="uuid-char")
     UUID id;
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    Integer id;
     static final long serialVersionUID = 1L;
     String username;
     String password;
@@ -51,41 +47,10 @@ public class UserJPA {
     boolean credentialsNonExpired;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "role_user", joinColumns = {
+    @JoinTable(name = "ROLE_USER", joinColumns = {
             @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
             @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private List<RoleJPA> roles;
-
-//    @Override
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return !accountNonExpired;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return !credentialsNonExpired;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return !accountNonLocked;
-//    }
-//
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Set<GrantedAuthority> authorities = new HashSet<>();
-//
-//        roles.forEach(r -> {
-//            authorities.add(new SimpleGrantedAuthority(r.getName()));
-//        });
-//
-//        return authorities;
-//    }
 
     @Column(name = "created_date", nullable = false, updatable = false)
     @CreatedDate
