@@ -494,6 +494,6 @@ connect giữa các user, group user, service quản lý media files, chat messa
 
 - Trước hết là phải đảm bảo được về chất lượng, đã đúng với requirement, đầy đủ unit test, test tích hợp, để đảm bảo
 cover được hết nghiệp vụ.
-- Thêm config cho môi trường production(datasource đến db trên prod, config call tới các service khác nếu có,...)
+- Request môi trường trên production (db, kafka, es,...)
+- Thêm config cho môi trường production(datasource đến db trên prod, config call tới các service khác nếu có, kafka topic...)
 - Mã hóa password của basic auth
-- Request môi trường trên production
