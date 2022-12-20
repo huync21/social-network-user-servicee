@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "user_name_change_log")
+@Table(name = "user_name_change_log")
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 public class UsernameChangeLogJPA {
@@ -28,16 +28,16 @@ public class UsernameChangeLogJPA {
     String newUserName;
     @Column(name = "user_id")
     Integer userID;
-    @Column(name = "created_date", nullable = false, updatable = false)
-    @CreatedDate
-    long createdDate;
-    @Column(name = "modified_date")
-    @LastModifiedDate
-    long modifiedDate;
-    @Column(name = "created_by")
-    @CreatedBy
-    String createdBy;
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    String modifiedBy;
+//    @Column(name = "created_date", nullable = false, updatable = false)
+//    @CreatedDate
+//    long createdDate;
+//    @Column(name = "modified_date")
+//    @LastModifiedDate
+//    long modifiedDate;
+//    @Column(name = "created_by")
+//    @CreatedBy
+//    String createdBy;
+//    @Column(name = "modified_by")
+//    @LastModifiedBy
+//    String modifiedBy;
 }

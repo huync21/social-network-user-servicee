@@ -10,19 +10,17 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(schema = "user")
+@Table(name = "user")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@EntityListeners(AuditingEntityListener.class)
-public class UserJPA implements UserDetails {
+//@EntityListeners(AuditingEntityListener.class)
+public class UserJPA {
 //    @Id
 //    @GeneratedValue(generator = "UUID")
 //    @GenericGenerator(
@@ -58,47 +56,47 @@ public class UserJPA implements UserDetails {
             @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private List<RoleJPA> roles;
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+//    @Override
+//    public boolean isEnabled() {
+//        return enabled;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return !accountNonExpired;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return !credentialsNonExpired;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return !accountNonLocked;
+//    }
+//
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        Set<GrantedAuthority> authorities = new HashSet<>();
+//
+//        roles.forEach(r -> {
+//            authorities.add(new SimpleGrantedAuthority(r.getName()));
+//        });
+//
+//        return authorities;
+//    }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return !accountNonExpired;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return !credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return !accountNonLocked;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<>();
-
-        roles.forEach(r -> {
-            authorities.add(new SimpleGrantedAuthority(r.getName()));
-        });
-
-        return authorities;
-    }
-
-    @Column(name = "created_date", nullable = false, updatable = false)
-    @CreatedDate
-    long createdDate;
-    @Column(name = "modified_date")
-    @LastModifiedDate
-    long modifiedDate;
-    @Column(name = "created_by")
-    @CreatedBy
-    String createdBy;
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    String modifiedBy;
+//    @Column(name = "created_date", nullable = false, updatable = false)
+//    @CreatedDate
+//    long createdDate;
+//    @Column(name = "modified_date")
+//    @LastModifiedDate
+//    long modifiedDate;
+//    @Column(name = "created_by")
+//    @CreatedBy
+//    String createdBy;
+//    @Column(name = "modified_by")
+//    @LastModifiedBy
+//    String modifiedBy;
 }

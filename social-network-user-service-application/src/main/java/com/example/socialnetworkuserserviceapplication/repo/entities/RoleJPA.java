@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "Role")
+@Table(name = "Role")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoleJPA {

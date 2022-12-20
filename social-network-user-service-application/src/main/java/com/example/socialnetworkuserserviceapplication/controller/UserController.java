@@ -9,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
-import java.util.UUID;
 
 import static com.example.socialnetworkuserserviceapplication.common.BaseUri.USER_SERVICE.USERS;
 import static com.example.socialnetworkuserserviceapplication.common.BaseUri.USER_SERVICE.V1;
@@ -22,7 +20,6 @@ import static com.example.socialnetworkuserserviceapplication.common.BaseUri.USE
 public class UserController {
     private final IUserService userService;
     private final UserControllerMapper userControllerMapper;
-
     @GetMapping
     public BaseResponse<List<UserResponse>> findUserByUsername(@RequestParam String keyword) {
         return BaseResponse.ofSucceeded(userControllerMapper.to(userService.findUserByUsername(keyword)));
